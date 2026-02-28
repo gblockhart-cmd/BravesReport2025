@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BATRA FY2025 — Financial Analysis</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0d1b2a;
+    --navy-mid: #162032;
+    --navy-light: #1e2f45;
+    --gold: #c9a84c;
+    --gold-light: #e8c97a;
+    --red: #c0392b;
+    --cream: #f5f0e8;
+    --cream-dark: #ede6d6;
+    --text: #1a1a2e;
+    --muted: #5a6478;
+    --border: rgba(201,168,76,0.25);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--cream);
+    color: var(--text);
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-weight: 300;
+    line-height: 1.75;
+  }
+
+  /* HEADER */
+  header {
+    background: var(--navy);
+    padding: 0;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .header-stripe {
+    height: 6px;
+    background: linear-gradient(90deg, var(--red) 0%, var(--red) 33%, var(--gold) 33%, var(--gold) 66%, var(--navy-light) 66%);
+  }
+
+  .header-inner {
+    padding: 60px 60px 50px;
+    position: relative;
+  }
+
+  .header-inner::before {
+    content: '⚾';
+    position: absolute;
+    right: 60px;
+    top: 40px;
+    font-size: 100px;
+    opacity: 0.06;
+    filter: grayscale(1);
+  }
+
+  .eyebrow {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 20px;
+  }
+
+  h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(36px, 5vw, 60px);
+    font-weight: 900;
+    color: #fff;
+    line-height: 1.1;
+    margin-bottom: 16px;
+  }
+
+  h1 span {
+    color: var(--gold);
+    font-style: italic;
+  }
+
+  .subtitle {
+    color: rgba(255,255,255,0.55);
+    font-size: 15px;
+    font-style: italic;
+    margin-bottom: 40px;
+  }
+
+  .header-meta {
+    display: flex;
+    gap: 40px;
+    flex-wrap: wrap;
+  }
+
+  .meta-item {
+    border-left: 2px solid var(--gold);
+    padding-left: 14px;
+  }
+
+  .meta-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gold);
+    display: block;
+  }
+
+  .meta-value {
+    color: #fff;
+    font-size: 14px;
+    font-weight: 400;
+  }
+
+  /* NAV */
+  .toc {
+    background: var(--navy-mid);
+    padding: 24px 60px;
+    border-top: 1px solid rgba(255,255,255,0.05);
+  }
+
+  .toc-list {
+    display: flex;
+    gap: 0;
+    flex-wrap: wrap;
+    list-style: none;
+  }
+
+  .toc-list li a {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    color: rgba(255,255,255,0.5);
+    text-decoration: none;
+    text-transform: uppercase;
+    padding: 6px 20px 6px 0;
+    margin-right: 20px;
+    border-right: 1px solid rgba(255,255,255,0.1);
+    transition: color 0.2s;
+  }
+
+  .toc-list li:last-child a { border-right: none; }
+  .toc-list li a:hover { color: var(--gold); }
+
+  /* MAIN CONTENT */
+  main {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 70px 40px;
+  }
+
+  /* SECTION */
+  section {
+    margin-bottom: 80px;
+  }
+
+  .section-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    margin-bottom: 32px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .section-number {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    color: var(--gold);
+    background: var(--navy);
+    padding: 4px 10px;
+    border-radius: 3px;
+    margin-top: 6px;
+    white-space: nowrap;
+  }
+
+  h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(22px, 3vw, 30px);
+    font-weight: 700;
+    color: var(--navy);
+    line-height: 1.2;
+  }
+
+  h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    font-weight: 700;
+    font-style: italic;
+    color: var(--navy);
+    margin: 32px 0 12px;
+  }
+
+  p {
+    margin-bottom: 18px;
+    font-size: 16px;
+    color: #2a2a3e;
+  }
+
+  strong {
+    font-weight: 600;
+    color: var(--navy);
+  }
+
+  /* STATS GRID */
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 16px;
+    margin: 32px 0;
+  }
+
+  .stat-card {
+    background: var(--navy);
+    color: #fff;
+    padding: 22px 20px;
+    border-radius: 4px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .stat-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--gold);
+  }
+
+  .stat-card.red::after { background: var(--red); }
+  .stat-card.green::after { background: #2ecc71; }
+
+  .stat-value {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 26px;
+    font-weight: 500;
+    color: var(--gold-light);
+    display: block;
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+
+  .stat-card.red .stat-value { color: #e88; }
+  .stat-card.green .stat-value { color: #7fefa7; }
+
+  .stat-label {
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    color: rgba(255,255,255,0.55);
+    text-transform: uppercase;
+    font-family: 'IBM Plex Mono', monospace;
+  }
+
+  .stat-change {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    margin-top: 8px;
+    opacity: 0.7;
+  }
+
+  /* CALLOUT */
+  .callout {
+    border-left: 4px solid var(--gold);
+    background: rgba(201,168,76,0.07);
+    padding: 20px 24px;
+    margin: 28px 0;
+    border-radius: 0 4px 4px 0;
+  }
+
+  .callout.red {
+    border-color: var(--red);
+    background: rgba(192,57,43,0.06);
+  }
+
+  .callout.navy {
+    border-color: var(--navy);
+    background: rgba(13,27,42,0.06);
+  }
+
+  .callout p { margin: 0; font-style: italic; font-size: 15px; }
+  .callout strong { color: var(--navy); }
+
+  /* TABLE */
+  .data-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 28px 0;
+    font-size: 14px;
+  }
+
+  .data-table thead th {
+    background: var(--navy);
+    color: var(--gold);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 12px 16px;
+    text-align: left;
+  }
+
+  .data-table tbody tr {
+    border-bottom: 1px solid var(--cream-dark);
+    transition: background 0.15s;
+  }
+
+  .data-table tbody tr:hover { background: rgba(201,168,76,0.05); }
+
+  .data-table td {
+    padding: 12px 16px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 13px;
+  }
+
+  .data-table td:first-child {
+    font-family: 'Source Serif 4', serif;
+    font-size: 14px;
+    color: var(--navy);
+    font-weight: 400;
+  }
+
+  .up { color: #27ae60; }
+  .down { color: var(--red); }
+
+  /* VERDICT BOX */
+  .verdict {
+    background: var(--navy);
+    color: #fff;
+    padding: 40px;
+    border-radius: 6px;
+    margin: 40px 0;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .verdict::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--red), var(--gold));
+  }
+
+  .verdict h3 {
+    color: var(--gold-light);
+    margin-top: 0;
+    font-size: 20px;
+  }
+
+  .verdict p { color: rgba(255,255,255,0.8); margin-bottom: 14px; }
+  .verdict p:last-child { margin-bottom: 0; }
+
+  /* SCENARIO TABLE */
+  .scenario-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 16px;
+    margin: 28px 0;
+  }
+
+  @media (max-width: 640px) { .scenario-grid { grid-template-columns: 1fr; } }
+
+  .scenario-card {
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 20px;
+    background: #fff;
+  }
+
+  .scenario-card.base { border-color: var(--gold); }
+  .scenario-card.bull { border-color: #27ae60; }
+  .scenario-card.bear { border-color: var(--red); }
+
+  .scenario-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    font-weight: 500;
+  }
+
+  .scenario-card.base .scenario-label { color: var(--gold); }
+  .scenario-card.bull .scenario-label { color: #27ae60; }
+  .scenario-card.bear .scenario-label { color: var(--red); }
+
+  .scenario-card h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: var(--navy);
+  }
+
+  .scenario-card p {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  /* FOOTER */
+  footer {
+    background: var(--navy);
+    color: rgba(255,255,255,0.35);
+    text-align: center;
+    padding: 40px 60px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    line-height: 2;
+  }
+
+  footer strong { color: var(--gold); }
+
+  /* DIVIDER */
+  .divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 40px 0;
+  }
+
+  /* INLINE MONO */
+  .mono {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.9em;
+    background: rgba(13,27,42,0.07);
+    padding: 1px 5px;
+    border-radius: 3px;
+  }
+
+  /* TAG */
+  .tag {
+    display: inline-block;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 3px 9px;
+    border-radius: 3px;
+    margin-right: 6px;
+    margin-bottom: 4px;
+  }
+
+  .tag-gold { background: rgba(201,168,76,0.15); color: #8a6a1a; border: 1px solid rgba(201,168,76,0.3); }
+  .tag-red  { background: rgba(192,57,43,0.1); color: var(--red); border: 1px solid rgba(192,57,43,0.25); }
+  .tag-navy { background: rgba(13,27,42,0.1); color: var(--navy); border: 1px solid rgba(13,27,42,0.2); }
+  .tag-green{ background: rgba(39,174,96,0.1); color: #1e7a45; border: 1px solid rgba(39,174,96,0.25); }
+
+  ul.bullets { list-style: none; padding-left: 0; margin: 14px 0 18px; }
+  ul.bullets li {
+    font-size: 15px;
+    padding: 6px 0 6px 22px;
+    position: relative;
+    border-bottom: 1px dotted rgba(0,0,0,0.08);
+    color: #2a2a3e;
+  }
+  ul.bullets li:last-child { border-bottom: none; }
+  ul.bullets li::before {
+    content: '→';
+    position: absolute; left: 0;
+    color: var(--gold);
+    font-family: 'IBM Plex Mono', monospace;
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="header-stripe"></div>
+  <div class="header-inner">
+    <div class="eyebrow">Financial Analysis · NASDAQ: BATRA / BATRK</div>
+    <h1>Atlanta Braves Holdings<br><span>FY2025 Deep Dive</span></h1>
+    <p class="subtitle">The Battery, BravesVision, MLB Revenue Sharing & The Looming Labor Storm</p>
+    <div class="header-meta">
+      <div class="meta-item">
+        <span class="meta-label">Report Date</span>
+        <span class="meta-value">February 27, 2026</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Data Through</span>
+        <span class="meta-value">FY2025 (Dec 31, 2025)</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Source</span>
+        <span class="meta-value">10-K Filing + Q4 2025 Earnings Call</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Stock Price</span>
+        <span class="meta-value">~$45.77 (BATRK)</span>
+      </div>
+    </div>
+  </div>
+  <nav class="toc">
+    <ul class="toc-list">
+      <li><a href="#headlines">§1 Headlines</a></li>
+      <li><a href="#battery">§2 The Battery</a></li>
+      <li><a href="#bravesvision">§3 BravesVision</a></li>
+      <li><a href="#revshare">§4 Revenue Sharing</a></li>
+      <li><a href="#labor">§5 Labor Risk</a></li>
+      <li><a href="#short">§6 Short Thesis</a></li>
+      <li><a href="#verdict">§7 Verdict</a></li>
+    </ul>
+  </nav>
+</header>
+
+<!-- MAIN -->
+<main>
+
+  <!-- §1 HEADLINES -->
+  <section id="headlines">
+    <div class="section-header">
+      <span class="section-number">§ 01</span>
+      <h2>The Headline Numbers</h2>
+    </div>
+
+    <p>Atlanta Braves Holdings (<span class="mono">BATRA / BATRK</span>) just released its FY2025 annual report — three days ago — and the numbers tell a story of genuine operational momentum buried beneath GAAP accounting noise. Total revenue crossed $732M, Adjusted OIBDA nearly tripled year-over-year, and The Battery Atlanta posted its best year ever. At the same time, a $30M impairment charge, a net loss, and $741M of total debt keep the GAAP picture complicated. Here's how to actually read it.</p>
+
+    <div class="stats-grid">
+      <div class="stat-card">
+        <span class="stat-value">$732M</span>
+        <span class="stat-label">Total Revenue</span>
+        <div class="stat-change up">▲ 11% YoY</div>
+      </div>
+      <div class="stat-card">
+        <span class="stat-value">$635M</span>
+        <span class="stat-label">Baseball Revenue</span>
+        <div class="stat-change up">▲ 7% YoY</div>
+      </div>
+      <div class="stat-card">
+        <span class="stat-value">$97M</span>
+        <span class="stat-label">Battery Revenue</span>
+        <div class="stat-change up">▲ 45% YoY</div>
+      </div>
+      <div class="stat-card green">
+        <span class="stat-value">$108M</span>
+        <span class="stat-label">Adj. OIBDA (Total)</span>
+        <div class="stat-change up">▲ 172% YoY</div>
+      </div>
+      <div class="stat-card">
+        <span class="stat-value">$51M</span>
+        <span class="stat-label">Baseball Adj. OIBDA</span>
+        <div class="stat-change up">▲ $44M vs. 2024</div>
+      </div>
+      <div class="stat-card">
+        <span class="stat-value">$69M</span>
+        <span class="stat-label">Battery Adj. OIBDA</span>
+        <div class="stat-change up">▲ 51% YoY</div>
+      </div>
+      <div class="stat-card red">
+        <span class="stat-value">($23M)</span>
+        <span class="stat-label">GAAP Net Loss</span>
+        <div class="stat-change">vs. ($31M) in 2024</div>
+      </div>
+      <div class="stat-card red">
+        <span class="stat-value">$741M</span>
+        <span class="stat-label">Total Debt</span>
+        <div class="stat-change">$487M = Battery debt</div>
+      </div>
+    </div>
+
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Revenue Line</th>
+          <th>FY2025</th>
+          <th>FY2024</th>
+          <th>Change</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Baseball Event (tickets, suites, concessions)</td>
+          <td>$357.8M</td>
+          <td>$347.9M</td>
+          <td class="up">▲ 3%</td>
+        </tr>
+        <tr>
+          <td>Broadcasting (national + local)</td>
+          <td>$188.6M</td>
+          <td>$166.1M</td>
+          <td class="up">▲ 14%</td>
+        </tr>
+        <tr>
+          <td>Retail & Licensing</td>
+          <td>$46.5M</td>
+          <td>$47.8M</td>
+          <td class="down">▼ 3%</td>
+        </tr>
+        <tr>
+          <td>Other (spring training, events)</td>
+          <td>$42.1M</td>
+          <td>$33.7M</td>
+          <td class="up">▲ 25%</td>
+        </tr>
+        <tr>
+          <td><strong>Total Baseball</strong></td>
+          <td><strong>$635.1M</strong></td>
+          <td><strong>$595.4M</strong></td>
+          <td class="up"><strong>▲ 7%</strong></td>
+        </tr>
+        <tr>
+          <td><strong>Mixed-Use Development (The Battery)</strong></td>
+          <td><strong>$97.4M</strong></td>
+          <td><strong>$67.3M</strong></td>
+          <td class="up"><strong>▲ 45%</strong></td>
+        </tr>
+        <tr>
+          <td><strong>TOTAL</strong></td>
+          <td><strong>$732.5M</strong></td>
+          <td><strong>$662.7M</strong></td>
+          <td class="up"><strong>▲ 11%</strong></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p>The GAAP net loss of $23M is misleading as a performance indicator. The key drivers are $75.6M in depreciation & amortization (a non-cash charge on all the real estate and stadium infrastructure), $46M in interest expense (the cost of carrying $741M in debt), and a $30.1M impairment charge in Q4 tied to the termination of the old RSN broadcasting contract. Strip those out and the cash generation story is materially better than the headline suggests.</p>
+  </section>
+
+  <!-- §2 THE BATTERY -->
+  <section id="battery">
+    <div class="section-header">
+      <span class="section-number">§ 02</span>
+      <h2>The Battery Atlanta — The Most Elegant Revenue Hack in Professional Sports</h2>
+    </div>
+
+    <div class="callout">
+      <p><strong>The key insight:</strong> The Battery Atlanta's revenue is not subject to MLB's revenue-sharing protocols. Every dollar earned stays in Atlanta. At $97M in 2025 revenue and $69M in Adjusted OIBDA, the Battery is generating a <strong>71% OIBDA margin</strong> — versus the baseball segment's ~8%. It is structurally the better business.</p>
+    </div>
+
+    <p>When the Braves convinced Cobb County to help finance the move from Turner Field to Truist Park in 2017, the real genius wasn't the stadium itself — it was the 75-acre mixed-use development wrapping around it. Restaurants, offices, hotel rooms, retail, and a concert venue (the Coca-Cola Roxy) that generate revenue 365 days a year, not just 81 home game days.</p>
+
+    <h3>2025 Battery Highlights</h3>
+    <ul class="bullets">
+      <li>Nearly <strong>9 million visitors</strong> to The Battery in 2025, with 21% coming from out of state</li>
+      <li>Tenant sales hit a record <strong>~$137 million across just 30 doors</strong>, ranking among the best mixed-use operations in the country</li>
+      <li>New tenants opened: Truist Securities building, Walk-On's Sports Bistreaux, Shake Shack</li>
+      <li><strong>380+ total events and concerts</strong> in 2025 — 144 in common areas, 147 at Coca-Cola Roxy, 95 Truist Park events</li>
+      <li>In April 2025, ABH acquired the <strong>Pennant Park office complex</strong> (six buildings) for ~$94M, reaching ~90% occupancy by year-end</li>
+      <li>Annualized Mixed-Use Development revenue now exceeds <strong>$100M</strong></li>
+    </ul>
+
+    <h3>The Revenue Sharing Moat</h3>
+    <p>The critical financial mechanic: MLB's revenue sharing system taxes local baseball revenue at 48% into a central pool that is redistributed equally to all 30 teams. As a large-market, high-revenue franchise, Atlanta is a <strong>net payor</strong> — they send more into the pool than they receive back. Battery revenue sits entirely outside this regime. At $97M in Battery revenue in 2025, the Braves retained tens of millions of dollars that would have faced redistribution had it been classified as baseball income.</p>
+
+    <p>This creates a powerful compounding incentive: every incremental dollar of Battery investment generates <em>fully retained</em> cash flow, while incremental baseball revenue is effectively taxed before it flows back through the pool. The strategic logic of continuing to buy adjacent real estate (like Pennant Park) is not just real estate diversification — it's tax arbitrage against MLB's own revenue sharing system.</p>
+
+    <div class="callout navy">
+      <p>The Battery currently represents <strong>13% of total revenue but 64% of total Adjusted OIBDA</strong>. Put another way: real estate is carrying the profitability of this entire enterprise.</p>
+    </div>
+
+    <h3>The Debt Side</h3>
+    <p>The Battery expansion has been financed aggressively. Of the $741M in total debt, $487M is classified as Mixed-Use Development debt. This is leveraged real estate — appropriate given the long-term, cash-flowing nature of the assets — but it does mean $46M in annual interest expense is a real drag on the income statement. The pedestrian bridge connecting the new Henry project to The Battery is nearing completion, which will further integrate the campus and support continued rent premium pricing.</p>
+  </section>
+
+  <!-- §3 BRAVESVISION -->
+  <section id="bravesvision">
+    <div class="section-header">
+      <span class="section-number">§ 03</span>
+      <h2>BravesVision — Cutting Out the Middleman (and Taking a One-Time Hit to Do It)</h2>
+    </div>
+
+    <div class="callout red">
+      <p><strong>Q4 surprise:</strong> The Braves recorded a <strong>$30.1M non-cash impairment charge</strong> in Q4 2025 related to the termination of their long-term local broadcasting agreement. This is the write-off of contract assets tied to the old RSN deal (Bally Sports Southeast / Main Street Sports Group), and it inflated the Q4 GAAP operating loss to $50M. Adjusted OIBDA was actually positive and improving in Q4. The impairment is the accounting cost of firing their old TV partner.</p>
+    </div>
+
+    <h3>What Is BravesVision?</h3>
+    <p>BravesVision is a multimedia platform fully owned and operated by the Braves organization that launches as their official local television home in the 2026 season. Rather than licensing local TV rights to a regional sports network (RSN) that captures the distribution economics, the Braves are vertically integrating — they become the network. They will negotiate directly with cable and satellite providers, sell their own advertising inventory, control streaming subscriber relationships, and own the audience data.</p>
+
+    <ul class="bullets">
+      <li>Will produce <strong>140+ games</strong> in the 2026 regular season including pre- and post-game programming</li>
+      <li>Available on cable, satellite, and streaming via a <strong>direct-to-distributor model</strong></li>
+      <li>All non-nationally exclusive games available on <strong>Braves.TV</strong> streaming without blackouts</li>
+      <li><strong>Gray Media partnership</strong> continues: 15 spring training games + simulcast of select regular season games on Peachtree TV and Gray's Southeast broadcast network</li>
+      <li>Full <strong>creative, production, sales, marketing, and distribution</strong> oversight kept in-house</li>
+    </ul>
+
+    <h3>The Economic Logic</h3>
+    <p>The collapse of the regional sports network model — Diamond Sports Group/Bally Sports went bankrupt — was initially a crisis for teams dependent on RSN income. The Braves have turned it into a strategic opportunity. Broadcasting revenue grew 14% in 2025 to $188.6M even before BravesVision officially launched, driven by streaming rights expansions with the transitional RSN partner.</p>
+
+    <p>CEO Derek Schiller on the earnings call: the priority was to <em>"maximize reach and availability for fans while protecting our economics given the popularity and value of our team."</em> Chairman Terry McGuirk emphasized that their television territory — spanning multiple southeastern states — gives them an audience scale advantage no other team in the RSN bankruptcy situation possessed.</p>
+
+    <h3>The Key Variable for 2026</h3>
+    <p>BravesVision's financial performance will hinge on two things: (1) how many cable/satellite providers agree to carry the channel and at what per-subscriber fee, and (2) how many fans subscribe directly via Braves.TV streaming. As of the earnings call, not all distribution agreements were finalized. This is the primary near-term execution risk for the stock. Broadcasting is ABH's second largest revenue line at $189M — any stumble in the transition matters.</p>
+
+    <div class="stats-grid">
+      <div class="stat-card">
+        <span class="stat-value">$189M</span>
+        <span class="stat-label">2025 Broadcasting Rev.</span>
+        <div class="stat-change up">▲ 14% YoY</div>
+      </div>
+      <div class="stat-card">
+        <span class="stat-value">140+</span>
+        <span class="stat-label">Games on BravesVision 2026</span>
+        <div class="stat-change">6-state territory</div>
+      </div>
+      <div class="stat-card red">
+        <span class="stat-value">($30M)</span>
+        <span class="stat-label">RSN Contract Impairment</span>
+        <div class="stat-change">Q4 2025, non-cash</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- §4 REVENUE SHARING -->
+  <section id="revshare">
+    <div class="section-header">
+      <span class="section-number">§ 04</span>
+      <h2>MLB Revenue Sharing — The Silent Tax on Baseball Success</h2>
+    </div>
+
+    <p>MLB's revenue sharing system is one of the most consequential — and least discussed — structural forces in baseball team economics. Understanding it is essential to understanding why the Braves' dual-segment model is not just diversification for its own sake, but a deliberate financial architecture.</p>
+
+    <h3>How It Works</h3>
+    <p><strong>Step 1:</strong> Every team contributes 48% of their net local revenues (gate receipts, local TV/radio rights, concessions, parking, local sponsorships) into a central pool. <strong>Step 2:</strong> National revenues (national TV deals, league-wide sponsorships, MLB.com) are added to the pool. <strong>Step 3:</strong> The entire pool is divided equally among all 30 teams — each receiving ~3.3% of the total.</p>
+
+    <p>For large-market, high-revenue teams like the Braves, this means they are <strong>net payors</strong>: they put significantly more into the pool than their equal 3.3% share returns. This is by design — the system subsidizes small-market franchises to maintain competitive viability across the league.</p>
+
+    <h3>What This Means for Atlanta</h3>
+    <div class="callout">
+      <p>Every additional dollar of local baseball revenue the Braves generate effectively faces a ~48% "tax" before the redistribution math is done. The Battery's $97M sits entirely outside this calculation. The financial incentive to keep investing in The Battery — and to classify more revenue as real estate rather than baseball — is embedded in the system's structure.</p>
+    </div>
+
+    <p>The revenue sharing cost shows up explicitly in ABH's filings. In both 2024 and 2025, "increases in MLB's revenue sharing plan" are called out as a headwind to baseball operating cost trends — even as the Braves reduced player salaries in 2025. The system is effectively a progressive tax on market success, and The Battery is the most elegant legal tax shelter in professional sports.</p>
+
+    <h3>The BravesVision Angle on Revenue Sharing</h3>
+    <p>Local broadcasting revenue is subject to the 48% revenue sharing contribution. By owning BravesVision rather than licensing to an RSN, the Braves control how that revenue is structured, bundled with other platform revenues, and potentially reclassified. There's also a pure efficiency argument: margin that previously flowed to the RSN operator (as their profit) now stays in Atlanta. The sharing obligation on the net baseball broadcasting income remains, but the gross economics improve when you remove the RSN middleman's cut.</p>
+
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Revenue Type</th>
+          <th>Subject to 48% Sharing?</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Gate receipts / tickets</td>
+          <td class="down">Yes</td>
+          <td>Local revenue — fully in pool</td>
+        </tr>
+        <tr>
+          <td>Local broadcasting</td>
+          <td class="down">Yes</td>
+          <td>BravesVision revenue subject to sharing</td>
+        </tr>
+        <tr>
+          <td>Concessions / parking</td>
+          <td class="down">Yes</td>
+          <td>Game-day local revenue</td>
+        </tr>
+        <tr>
+          <td>National TV (ESPN, Fox, TBS)</td>
+          <td>Pooled separately</td>
+          <td>All 30 teams share equally anyway</td>
+        </tr>
+        <tr>
+          <td>Battery rental income</td>
+          <td class="up">No</td>
+          <td>Real estate — fully retained</td>
+        </tr>
+        <tr>
+          <td>Battery retail / events</td>
+          <td class="up">No</td>
+          <td>Non-baseball classification</td>
+        </tr>
+        <tr>
+          <td>Pennant Park office rents</td>
+          <td class="up">No</td>
+          <td>Fully retained real estate income</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- §5 LABOR RISK -->
+  <section id="labor">
+    <div class="section-header">
+      <span class="section-number">§ 05</span>
+      <h2>The Looming Labor Storm — CBA Expiration & Lockout Risk</h2>
+    </div>
+
+    <div class="callout red">
+      <p><strong>Hard deadline:</strong> The current MLB CBA expires at <strong>11:59 p.m. ET on December 1, 2026.</strong> Both sides are already publicly positioning for a fight. A lockout is widely expected. The only real question is how long it lasts.</p>
+    </div>
+
+    <h3>What Both Sides Want</h3>
+    <p>The core dispute: <strong>owners want a salary cap</strong>. MLB is the only major North American sports league without one. The Dodgers ($380M payroll) and Mets ($312M) are spending more than ten times what the Marlins ($31M) and Athletics ($55M) spend — a disparity that has become politically untenable within the league. Manfred has been visiting clubhouses for three straight years pushing for "competitive balance reforms."</p>
+
+    <p><strong>Players won't accept it.</strong> MLBPA has called a salary cap "institutionalized collusion." Players have described it as a weapon to suppress wages. Pete Alonso said publicly: <em>"No one's talking about it, but we all know that they're going to lock us out for it, and then we're going to miss time."</em> Bryce Harper told Manfred to leave the Phillies' clubhouse when he raised the topic.</p>
+
+    <p>Additional complication: <strong>Tony Clark, the MLBPA Executive Director, suddenly resigned at the start of 2026 Spring Training</strong>, leaving the union without established leadership heading into the most consequential labor negotiation in a generation. Leadership vacuums don't accelerate deals.</p>
+
+    <h3>Three Lockout Scenarios</h3>
+    <div class="scenario-grid">
+      <div class="scenario-card base">
+        <div class="scenario-label">Base Case (~55% probability)</div>
+        <h4>Offseason Lockout, Full Season Preserved</h4>
+        <p>Dec. 1 lockout, free agency frozen, deal struck by March. 2027 season plays full 162 games with a delayed opening day (2022 template). Minimal direct financial impact on ABH — Q4/Q1 revenue is already near zero on the baseball side.</p>
+      </div>
+      <div class="scenario-card bear">
+        <div class="scenario-label">Bear Case (~30% probability)</div>
+        <h4>Partial Season Lost</h4>
+        <p>Talks break down, games canceled into April or beyond. 20–30 home games lost = $80–150M in gross baseball revenue evaporated. BravesVision launch severely disrupted at its most critical subscriber acquisition window.</p>
+      </div>
+      <div class="scenario-card bear">
+        <div class="scenario-label">Tail Risk (~15% probability)</div>
+        <h4>Extended Stoppage (1994 Scenario)</h4>
+        <p>Salary cap standoff drags into summer. Significant portion of 2027 season canceled or lost. Fan backlash suppresses attendance for multiple subsequent years — the 1994 strike cost MLB ~20% attendance for several years afterward.</p>
+      </div>
+    </div>
+
+    <h3>ABH's Specific Exposure by Segment</h3>
+
+    <p><strong>Baseball Segment — High Direct Exposure.</strong> $358M in event revenue is directly tied to games being played. Each home game is worth roughly $4–5M in event revenue at current run rates. Baseball operating costs (player salaries, staff, stadium operations) are largely fixed or semi-fixed in the near term, meaning operating leverage works against you sharply when games disappear. BravesVision adds a new layer of execution risk — a lockout heading into the platform's launch year is the worst possible timing.</p>
+
+    <p><strong>Mixed-Use Development — Structurally Insulated.</strong> The Battery's rental income, office leases at Pennant Park, hotel revenue, and concert/event calendar are entirely independent of whether MLB games are played. The Battery generated $69M in Adjusted OIBDA in 2025 — that cash flow base remains intact through any labor stoppage. This is the Braves' lockout moat, and no other MLB franchise has a comparable buffer at this scale.</p>
+
+    <div class="callout navy">
+      <p>In a worst-case extended lockout, the Battery's OIBDA (~$69M annualized) essentially covers the company's corporate overhead and interest on baseball-side debt (~$45M). The business doesn't go bankrupt from a labor dispute. It gets hurt, but it doesn't break.</p>
+    </div>
+
+    <p><strong>Historical context:</strong> The 2021–22 lockout lasted 99 days but resolved before the regular season was materially impacted (only the first week of games was briefly cancelled). The 1994–95 strike — the real tail risk template — lasted 232 days, cancelled the World Series, and caused attendance to fall ~20% for several subsequent years. Both sides know the 1994 scar tissue well, which is why the base case remains a deal that protects the regular season.</p>
+  </section>
+
+  <!-- §6 SHORT THESIS -->
+  <section id="short">
+    <div class="section-header">
+      <span class="section-number">§ 06</span>
+      <h2>Is This a Short Play? An Honest Assessment</h2>
+    </div>
+
+    <p>The question is worth answering rigorously rather than just directionally. What is the market pricing? Is there systematic mispricing of labor risk? Does the risk-reward skew favor the short side?</p>
+
+    <h3>Arguments For a Short</h3>
+    <ul class="bullets">
+      <li><strong>Known negative catalyst window.</strong> December 1, 2026 is a hard date. As it approaches and rhetoric escalates, expect multiple compression on BATRA. The franchise value and real estate NAV story is hard to hold when near-term cash flow visibility collapses.</li>
+      <li><strong>BravesVision execution risk is front-loaded and fragile.</strong> A new broadcast platform needs its first season to work — it needs subscribers, carriage deals, and advertising inventory to fill. A lockout heading into the 2027 season disrupts all three at the platform's most critical early moment.</li>
+      <li><strong>Elevated leverage with thin baseball OIBDA coverage.</strong> $741M in total debt with $46M in annual interest expense against only $51M in baseball Adjusted OIBDA. Revenue stress from canceled games puts the baseball debt service into uncomfortable territory.</li>
+      <li><strong>MLBPA leadership vacuum could extend negotiations.</strong> A new union executive director negotiating their first CBA has career incentives to not blink — making a quick resolution structurally harder than the 2022 precedent.</li>
+    </ul>
+
+    <h3>Arguments Against a Short</h3>
+    <ul class="bullets">
+      <li><strong>An offseason-only lockout has near-zero financial impact.</strong> If the 2022 template repeats, baseball revenue loss is immaterial — the Braves generated essentially zero baseball event revenue in Q4 of both 2024 and 2025. You'd be short a stock through a non-event.</li>
+      <li><strong>The Battery is a genuine structural floor on EV.</strong> At $69M in Adjusted OIBDA, model the Battery at a conservative 15x multiple and you get $1B+ of Battery-only value. That's against a total enterprise value of ~$3.3B. You're not getting cheap downside exposure given how much of the value is lockout-insulated.</li>
+      <li><strong>Franchise values appreciate through labor disputes.</strong> MLB franchises — one of only 30 — are structurally scarce assets. Every prior lockout has eventually resolved, and franchise values have climbed through all of them. The long-term NAV story doesn't break from a work stoppage.</li>
+      <li><strong>Thin float, high borrow cost.</strong> BATRA/BATRK are low-volume, controlled-float stocks. Borrow costs and execution risk eat into short returns even when the thesis is directionally correct.</li>
+      <li><strong>Post-lockout record revenues.</strong> The 2022 lockout was followed by record MLB revenues of $10.8–10.9B. History suggests pent-up fan demand absorbs the disruption faster than markets expect.</li>
+    </ul>
+
+    <h3>The Smart Trade Structure</h3>
+    <p>This is not a "set and forget" short. The more disciplined approach is to treat it as a <strong>risk-event trade with a defined entry window</strong>. Rather than shorting now, monitor the spread between BATRA's trading price and sum-of-parts NAV estimates as December 2026 approaches. If the stock is NOT pricing in lockout risk as negotiations appear visibly acrimonious — typically 3–4 months before the deadline — that becomes a tactical short entry. Cover when a deal is struck.</p>
+
+    <p>The 1994 extended scenario is a different trade entirely. If that becomes the working hypothesis, you'd get better asymmetry on the labor disruption thesis through options on the broader sports/entertainment sector rather than through a thinly-traded individual stock with a $1B+ real estate buffer embedded in it.</p>
+  </section>
+
+  <!-- §7 VERDICT -->
+  <section id="verdict">
+    <div class="section-header">
+      <span class="section-number">§ 07</span>
+      <h2>Bottom Line</h2>
+    </div>
+
+    <div class="verdict">
+      <h3>The Two-Sentence Version</h3>
+      <p>The Braves are running one of the most sophisticated financial models in professional sports — a baseball team with a compounding real estate business attached that is structurally shielded from the very revenue-sharing system that taxes their baseball success. BravesVision is the next bet in that same playbook, trading a comfortable RSN relationship for full vertical control of local media economics.</p>
+      <p>The labor risk is real but asymmetric — a typical offseason lockout barely touches them financially, while the Battery provides a $69M OIBDA floor that no other MLB franchise can claim. The short thesis requires an extended work stoppage, and it's a better risk-event trade than a fundamental short.</p>
+    </div>
+
+    <h3>Key Risks to Monitor in 2026</h3>
+    <ul class="bullets">
+      <li><strong>BravesVision carriage deals</strong> — how many homes, at what per-subscriber rate, and by when</li>
+      <li><strong>CBA negotiation tone</strong> as the December 1 deadline approaches — watch for public rhetoric and back-channel reporting</li>
+      <li><strong>MLBPA leadership</strong> — who replaces Tony Clark and how quickly they establish authority in negotiations</li>
+      <li><strong>Battery occupancy and tenant health</strong> post-Pennant Park acquisition — the acquisition boosted revenue but also costs</li>
+      <li><strong>On-field performance</strong> — FanGraphs has the Braves as the #2 preseason team. A postseason run would significantly boost 2026 event revenue and accelerate the BravesVision subscriber thesis simultaneously</li>
+    </ul>
+
+    <div class="callout">
+      <p><strong>The franchise value anchor:</strong> Analysts currently value BATRA/BATRK at a ~11% discount to estimated NAV (~$3.71B enterprise value vs. ~$3.34B market EV). Three analysts rate it <strong>Strong Buy</strong> with a 12-month price target of $58 vs. current ~$46. The discount reflects execution uncertainty on BravesVision and labor overhang — not a fundamental problem with the underlying assets.</p>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div>
+    <strong>BATRA / BATRK — Financial Analysis</strong><br>
+    Prepared February 27, 2026 · Based on FY2025 10-K Filing & Q4 2025 Earnings Call Transcript<br>
+    Sources: ABH Press Release, SEC EDGAR, Insider Monkey Transcript, Sportico, CBS Sports, ESPN, CNBC Sport<br><br>
+    This report is for informational and educational purposes only and does not constitute investment advice.<br>
+    Past financial performance is not indicative of future results. Always conduct your own due diligence.
+  </div>
+</footer>
+
+</body>
+</html>
